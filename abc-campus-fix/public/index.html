@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ABC College – Campus Fix Portal</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light;--bg:#fff;--soft:#f4f7ff;--card:#fff;--ink:#14203d;--mut:#66708a;--ac:#2450e6;--ac2:#6a3df0;--ln:#e6eaf4;--ok:#16a05a;--wa:#e08a00;--er:#e04545}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*:before,*:after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;line-height:1.55}
+h1,h2,.brand{font-family:Georgia,'Times New Roman',serif}
+#intro{position:fixed;inset:0;z-index:9;background:#fff;color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;transition:opacity .6s,visibility .6s;background-image:radial-gradient(circle at 20% 20%,#e8eeff 0,transparent 45%),radial-gradient(circle at 80% 80%,#efe8ff 0,transparent 45%)}
+#intro.gone{opacity:0;visibility:hidden}
+#intro h1{font-size:clamp(2.6rem,10vw,5.5rem);margin:0;letter-spacing:.03em;display:flex;flex-wrap:wrap;justify-content:center;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text}
+#intro h1 span{opacity:0;transform:translateY(40px) rotate(6deg);animation:up .7s forwards;color:transparent;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text}
+@keyframes up{to{opacity:1;transform:none}}
+#intro p{opacity:0;margin:14px 0 30px;color:var(--mut);letter-spacing:.3em;text-transform:uppercase;font-size:.8rem;animation:fade 1s 1.6s forwards}
+#intro button{opacity:0;animation:fade 1s 2.2s forwards}
+@keyframes fade{to{opacity:1}}
+.line{width:0;height:3px;border-radius:3px;background:linear-gradient(90deg,var(--ac),var(--ac2));margin-top:18px;animation:w 1.2s 1.2s forwards}
+@keyframes w{to{width:min(60vw,320px)}}
+button{cursor:pointer;border:0;border-radius:10px;padding:11px 20px;background:linear-gradient(90deg,var(--ac),var(--ac2));color:#fff;font-size:.95rem;font-weight:600;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 14px rgba(36,80,230,.25)}
+button:hover{transform:translateY(-1px)}
+button:disabled{cursor:not-allowed}
+button.ghost{background:#fff;color:var(--ink);border:1px solid var(--ln);box-shadow:none}
+button.on{background:var(--ink);color:#fff;box-shadow:none}
+header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid var(--ln);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);position:sticky;top:env(safe-area-inset-top,0px);z-index:2}
+.brand{font-size:1.2rem;font-weight:700}
+nav{display:flex;gap:8px}
+main{max-width:960px;margin:0 auto;padding:28px 16px 70px}
+.hero{background:linear-gradient(135deg,#eaf0ff,#f1eaff);border:1px solid var(--ln);border-radius:20px;padding:34px 28px;margin-bottom:22px}
+.hero h2{font-size:clamp(1.7rem,5vw,2.4rem);margin:0 0 8px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chips span{background:#fff;border:1px solid var(--ln);border-radius:99px;padding:6px 14px;font-size:.85rem;font-weight:600}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 6px 24px rgba(20,32,61,.05)}
+h2{margin:0 0 4px;font-size:1.7rem}.mut{color:var(--mut);font-size:.92rem}
+label{display:block;font-weight:700;font-size:.72rem;margin:14px 0 5px;color:var(--mut);text-transform:uppercase;letter-spacing:.06em}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid var(--ln);border-radius:10px;background:#fff;color:var(--ink);font:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid #c9d6ff;border-color:var(--ac)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+.tag{display:inline-block;padding:3px 12px;border-radius:99px;font-weight:700;font-size:.72rem;color:#fff;height:fit-content}
+.Pending{background:var(--er)}.Scheduled{background:var(--wa)}.Solved{background:var(--ok)}
+.top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:start}
+.adm{margin-top:14px;padding:14px;border-radius:12px;background:var(--soft)}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 6px}
+@media(max-width:600px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--soft);border:1px solid var(--ln);border-radius:14px;padding:14px;text-align:center}
+.stat b{display:block;font-size:1.8rem;font-family:Georgia,serif}.stat span{font-size:.78rem;color:var(--mut);font-weight:600}
+.note{padding:12px 16px;border-radius:12px;background:#fff8e8;border:1px solid #f4dca0;font-size:.88rem;margin-bottom:16px}
+a{color:var(--ac)}
+.hide{display:none}
+</style></head>
+<body>
+<div id="intro">
+ <h1 id="ttl" aria-label="ABC College"></h1><div class="line"></div>
+ <p>Campus Fix Portal</p>
+ <button id="enter">Enter Portal →</button>
+</div>
+
+<header>
+ <span class="brand">🏛 ABC College · Campus Fix</span>
+ <nav><button id="n1" class="on">Report an issue</button><button id="n2" class="ghost">Registered complaints</button><button id="n3" class="ghost">Admin login</button></nav>
+</header>
+<main>
+ 
+ <section id="v1">
+  <div class="hero"><h2>Spot a problem on campus?<br>Let's get it fixed.</h2>
+  <p class="mut" style="max-width:520px">Broken bench, leaking tap, dead light, Wi-Fi down — report it here and the maintenance team will take it from there.</p>
+  <div class="chips"><span>1 · Report</span><span>2 · Admin reviews</span><span>3 · Scheduled &amp; fixed</span></div></div>
+  <div class="card">
+   <div class="row">
+    <div><label>Your name</label><input id="f_name" placeholder="Optional"></div>
+    <div><label>Category</label><select id="f_cat"><option>Electrical</option><option>Plumbing</option><option>Classroom / Furniture</option><option>Wi-Fi / Network</option><option>Hostel</option><option>Canteen</option><option>Cleanliness</option><option>Roads / Ground</option><option>Safety</option><option>Other</option></select></div>
+   </div>
+   <div class="row">
+    <div><label>Location</label><input id="f_loc" placeholder="e.g. Block B, Room 204"></div>
+    <div><label>Priority</label><select id="f_pri"><option>Low</option><option selected>Medium</option><option>High</option><option>Urgent</option></select></div>
+   </div>
+   <label>Issue title</label><input id="f_title" placeholder="Short summary">
+   <label>Details</label><textarea id="f_desc" rows="4" placeholder="What is wrong? Since when?"></textarea>
+   <div class="bar"><button id="submit">Submit complaint</button></div>
+   <div id="sent" class="hide note"></div>
+  </div>
+ </section>
+
+ <section id="v2" class="hide">
+  <h2>Registered complaints</h2>
+  <p class="mut" id="who">Track the progress of every reported issue.</p>
+  <div class="stats" id="stats"></div>
+  <div class="bar" id="filters"></div>
+  <div id="list"></div>
+ </section>
+
+ <section id="v3" class="hide">
+  <div class="card" style="max-width:420px;margin:30px auto">
+   <h2>Admin login</h2>
+   <p class="mut">Only authorised staff can update complaint status.</p>
+   <label>Username</label><input id="a_user" autocomplete="username">
+   <label>Password</label><input id="a_pass" type="password" autocomplete="current-password">
+   <div id="a_err" style="color:var(--er);font-size:.85rem;margin-top:8px"></div>
+   <div class="bar"><button id="login">Log in</button></div>
+  </div>
+ </section>
+</main>
+
+<script>
+// intro animation
+const t=document.getElementById('ttl');
+"ABC College".split('').forEach((c,i)=>{const s=document.createElement('span');s.textContent=c===' '?'\u00a0':c;s.style.animationDelay=(i*0.09)+'s';t.appendChild(s)});
+const enter=()=>{document.getElementById('intro').classList.add('gone');try{sessionStorage.setItem('seen','1')}catch(e){}};
+try{if(sessionStorage.getItem('seen'))document.getElementById('intro').classList.add('gone')}catch(e){}
+document.getElementById('enter').onclick=enter;
+setTimeout(enter,9000);
+
+
+// state
+let complaints=[],isAdmin=false,filter='All';
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const api=async(url,method='GET',body)=>{const r=await fetch(url,{method,headers:{'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+ const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error||'Request failed');return j};
+
+function show(n){[1,2,3].forEach(i=>{$('v'+i).classList.toggle('hide',i!==n);$('n'+i).className=i===n?'on':'ghost'});
+ if(n===3&&isAdmin)$('n3').className='ghost';
+ const h=['','#report','#complaints','#admin'][n];try{if(location.hash!==h)location.hash=h}catch(e){}
+ window.scrollTo(0,0);if(n===2)loadList()}
+function route(){const h=location.hash;show(h==='#complaints'?2:h==='#admin'?(isAdmin?2:3):1)}
+window.addEventListener('hashchange',route);
+function adminUI(){$('n3').textContent=isAdmin?'Logout':'Admin login'}
+$('n1').onclick=()=>show(1);$('n2').onclick=()=>show(2);
+$('n3').onclick=async()=>{if(isAdmin){try{await api('/api/logout','POST')}catch(e){}isAdmin=false;adminUI();show(2)}else show(3)};
+
+$('login').onclick=async()=>{$('a_err').textContent='';
+ try{await api('/api/login','POST',{username:$('a_user').value.trim(),password:$('a_pass').value});
+  isAdmin=true;adminUI();$('a_pass').value='';show(2)}catch(e){$('a_err').textContent=e.message}};
+$('a_pass').addEventListener('keydown',e=>{if(e.key==='Enter')$('login').click()});
+
+$('submit').onclick=async()=>{
+ const c={name:$('f_name').value,category:$('f_cat').value,location:$('f_loc').value,priority:$('f_pri').value,title:$('f_title').value,desc:$('f_desc').value};
+ if(!c.title.trim()||!c.location.trim()||!c.desc.trim()){alert('Please fill in title, location and details.');return}
+ $('submit').disabled=true;
+ try{const r=await api('/api/complaints','POST',c);
+  ['f_name','f_loc','f_title','f_desc'].forEach(k=>$(k).value='');
+  const s=$('sent');s.classList.remove('hide');
+  s.innerHTML='✅ Complaint <b>#'+esc(r.id)+'</b> registered'+(r.emailed?' and the admin has been notified by email.':'.')+' You can track it on the <a href="#complaints">Registered complaints</a> page.';
+ }catch(e){alert(e.message)}
+ $('submit').disabled=false};
+
+async function loadList(){
+ try{complaints=await api('/api/complaints')}catch(e){$('list').innerHTML='<div class="card mut">Could not load complaints.</div>';return}
+ render()}
+function render(){
+ const fs=['All','Pending','Scheduled','Solved'];
+ $('filters').innerHTML=fs.map(f=>`<button class="${f===filter?'on':'ghost'}" data-f="${f}">${f}</button>`).join('');
+ $('filters').querySelectorAll('button').forEach(b=>b.onclick=()=>{filter=b.dataset.f;render()});
+ const cnt=k=>complaints.filter(c=>c.status===k).length;
+ $('stats').innerHTML=[['Total',complaints.length],['Pending',cnt('Pending')],['Scheduled',cnt('Scheduled')],['Solved',cnt('Solved')]].map(a=>`<div class="stat"><b>${a[1]}</b><span>${a[0]}</span></div>`).join('');
+ $('who').textContent=isAdmin?'Admin mode: update the status and estimated fix time below.':'Track the progress of every reported issue. Only the admin can change status.';
+ const rows=complaints.filter(c=>filter==='All'||c.status===filter);
+ if(!rows.length){$('list').innerHTML='<div class="card mut">No complaints here yet.</div>';return}
+ $('list').innerHTML=rows.map(c=>{const st=c.status;
+  return `<div class="card"><div class="top"><div><b>${esc(c.title)}</b><div class="mut">#${esc(c.id)} · ${esc(c.category)} · ${esc(c.location)} · ${esc(c.priority)} priority · ${new Date(c.created).toLocaleDateString()}</div></div><span class="tag ${st}">${st}</span></div>
+  <p>${esc(c.desc)}</p>
+  ${st==='Scheduled'&&c.eta?`<div><b>🛠 Estimated fix:</b> ${esc(c.eta)}</div>`:''}
+  ${c.note?`<div class="mut">Admin note: ${esc(c.note)}</div>`:''}
+  ${isAdmin?`<div class="adm"><div class="row"><div><label>Status</label><select data-s="${c.id}"><option${st==='Pending'?' selected':''}>Pending</option><option${st==='Scheduled'?' selected':''}>Scheduled</option><option${st==='Solved'?' selected':''}>Solved</option></select></div>
+  <div><label>Approx. fix time</label><input data-e="${c.id}" value="${esc(c.eta)}" placeholder="e.g. 2–3 days / 5 Oct"></div></div>
+  <label>Note (optional)</label><input data-n="${c.id}" value="${esc(c.note)}">
+  <div class="bar"><button data-save="${c.id}">Save update</button></div></div>`:''}</div>`}).join('');
+ $('list').querySelectorAll('[data-save]').forEach(b=>b.onclick=async()=>{
+  const id=b.dataset.save,q=k=>document.querySelector(`[data-${k}="${id}"]`).value.trim();
+  try{await api('/api/complaints/'+id,'PATCH',{status:q('s'),eta:q('e'),note:q('n')});loadList()}
+  catch(e){alert(e.message);if(/login/i.test(e.message)){isAdmin=false;adminUI();show(3)}}});
+}
+
+api('/api/me').then(r=>{isAdmin=!!r.admin;adminUI()}).catch(()=>{}).finally(route);
+</script>
+</body></html>
